@@ -46,13 +46,13 @@ if ($status == "START") {
     $fungsi = "START";
     $result = shell_exec("$prog $vmx $vmx_username $vmx_password $fungsi");
     $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
+    mysqli_query($koneksi, $query);
     
     $_SESSION['id'] = $id;
     $_SESSION['path'] = '/';
     $fungsi2 = "LS";
     $pwd = $_SESSION['path'];
     exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
-    mysqli_query($koneksi, $query);
 }
 
 if ($status == "STOP") {
