@@ -24,11 +24,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/charts/chartjs.html" class="nav-link">
+                            <a href="vm_list.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>List</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="vm_list.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Snapshot List</p>
+                            </a>
+                        </li>
+                        <!--
                         <li class="nav-item">
                             <a href="pages/charts/chartjs.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -41,16 +48,20 @@
                                 <p>Edit</p>
                             </a>
                         </li>
+                        -->
                     </ul>
                 </li>
-                <li class="nav-header">Virtual Machines</li>
+                <li class="nav-header">Utilities</li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                            <span class="badge badge-info right">2</span>
-                        </p>
+                    <a href="vm_file_explorer.php" class="nav-link">
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>File Explorer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="vm_terminal.php" class="nav-link">
+                        <i class="nav-icon fas fa-desktop"></i>
+                        <p>Terminal</p>
                     </a>
                 </li>
             </ul>
