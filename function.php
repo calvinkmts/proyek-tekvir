@@ -45,14 +45,14 @@ if ($status == "START") {
     alert('You click Power On', 'vm_list.php');
     $fungsi = "START";
     $result = shell_exec("$prog $vmx $vmx_username $vmx_password $fungsi");
-    $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
-    mysqli_query($koneksi, $query);
     
     $_SESSION['id'] = $id;
     $_SESSION['path'] = '/';
     $fungsi2 = "LS";
     $pwd = $_SESSION['path'];
     exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
+    $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
+    mysqli_query($koneksi, $query);
 }
 
 if ($status == "STOP") {
@@ -80,6 +80,15 @@ if ($status == "RSSHOT") {
     alert('You revert to Snapshot ' .$rsnap_name, 'vm_snapshot_list.php');
     $fungsi = "RSSHOT";
     exec("$prog $fungsi $vmx $rsnap_name");
+}
+
+if($status == "CLONE"){
+    if (!empty($_POST['clone_path'])){
+        $clone_path = escapeshellarg(htmlentities($_POST['clone_path']));
+    }
+    alert('You Clone to '.$clone_path, 'vm_list.php');
+    $fungsi = "CLONE";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $clone_path");
 }
 
 if ($status == "GO") {
@@ -116,11 +125,46 @@ if ($status == "BACK") {
 }
 
 if ($status == "MD") {
+    if (!empty($_POST['new_dir'])) {
+        $new_dir = $_POST['new_dir'];
+    }
 
+    $pwd = $_SESSION['path'];
+    if (substr($pwd, -1) != '/') {
+        $new_dir_path = $pwd . '/' . $new_dir;
+    }
+    alert('New directory has created', 'vm_file_explorer.php');
+    $fungsi = "MD";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $new_dir_path");
+
+    $_SESSION['id'] = $id;
+    $fungsi2 = "LS";
+    $pwd = $_SESSION['path'];
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
+    $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
+    mysqli_query($koneksi, $query);
 }
 
 if ($status == "RD") {
+    if (!empty($_POST['new_dir'])) {
+        $new_dir = $_POST['new_dir'];
+    }
 
+    $pwd = $_SESSION['path'];
+    if (substr($pwd, -1) != '/') {
+        $new_dir_path = $pwd . '/' . $new_dir;
+    }
+
+    alert('Directory has been deleted', 'vm_file_explorer.php');
+    $fungsi = "RD";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $new_dir_path");
+
+    $_SESSION['id'] = $id;
+    $fungsi2 = "LS";
+    $pwd = $_SESSION['path'];
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
+    $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
+    mysqli_query($koneksi, $query);
 }
 
 if ($status == "MV") {

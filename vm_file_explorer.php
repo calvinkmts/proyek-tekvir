@@ -52,6 +52,71 @@ if (empty($_SESSION['path'])) {
             </div>
             <!-- /.card-body -->
         </div>
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Directory Management</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="function.php">
+                    <div class="input-group input-group">
+                        <span class="input-group-prepend">
+                            <span class="input-group-text">Path: <?php echo $_SESSION["path"]; ?></span>
+                        </span>
+                        <input type="text" class="form-control" value="" name="new_dir" id="new_dir">
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-info btn-flat" name="status" value="MD">New</button>
+                        </span>
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-danger btn-flat" name="status" value="RD">Delete</button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /input-group -->
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">File Management</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form method="POST" action="function.php">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Old File / Directory Name</label>
+                                <input type="text" class="form-control" placeholder="Enter ...">
+                            </div>
+                            <div class="form-group">
+                                <label>New File / Directory Name</label>
+                                <input type="text" class="form-control" placeholder="Enter ...">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <form method="POST" action="function.php">
+                            <div class="form-group">
+                                <label for="exampleInputFile">File input</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">File Explorer</h3>

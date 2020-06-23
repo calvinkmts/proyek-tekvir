@@ -1,4 +1,22 @@
 <?php
+function alert($msg)
+{
+    echo "<script>alert('$msg')
+    window.location.replace('index.php');
+    </script>";
+}
+
+if (isset($_POST['delete'])) {
+    $id = $_POST['id'];
+    $result = mysqli_query($koneksi, "SELECT name FROM virtual_machines WHERE id='$id'");
+    while ($row = $result->fetch_assoc()) {
+        $vm_name = $row['name'];
+    }
+    alert('You have removed ' . $name);
+    $query = "DELETE FROM virtual_machines WHERE id='$id'";
+    mysqli_query($koneksi, $query);
+}
+
 include("_layouts/header.php");
 include("_layouts/navbar.php");
 include("_layouts/sidebar.php");
@@ -43,6 +61,7 @@ include("_config/connect.php");
                             <th>Status</th>
                             <th>Turn On</th>
                             <th>Turn Off</th>
+                            <th>Clone</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -72,7 +91,17 @@ include("_config/connect.php");
                                     </form>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-block btn-danger btn-sm">Delete</button>
+                                    <form method="POST" action="function.php">
+                                        <input type="hidden" value="<?php echo $row_tipe['id']; ?>" name="id" id="id">
+                                        <input type="name" id="clone_path" class="form-control" placeholder="Clone Path" name="clone_path" required autofocus>
+                                        <button class="btn btn-block btn-info btn-sm" type="submit" name="status" value="CLONE">Clone</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="POST" action="function_delete_os.php">
+                                        <input type="hidden" value="<?php echo $row_tipe['id']; ?>" name="id" id="id">
+                                        <button type="submit" class="btn btn-block btn-danger btn-sm" name="delete">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -81,6 +110,40 @@ include("_config/connect.php");
             </div>
             <!-- /.card-body -->
         </div>
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Add VM</h3>
+            </div>
+            <div class="card-body">
+                <form action="function_add_os.php" method="POST" role="form">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">VM Name</label>
+                        <input class="form-control" id="vm_name" type="text" placeholder="VM Name" name="vm_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">VM Path</label>
+                        <input class="form-control" id="vm_path" type="text" placeholder="VM Path" name="vm_path">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">VM Username</label>
+                                <input class="form-control" id="vm_username" type="text" placeholder="VM Username" name="vm_username">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">VM Password</label>
+                                <input class="form-control" id="vm_password" type="password" placeholder="VM Password" name="vm_password">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning text-uppercase" type="submit" value="simpan">Add VM</button>
+                </form>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
     </section>
     <!-- /.content -->
 </div>
