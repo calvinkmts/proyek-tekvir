@@ -87,30 +87,34 @@ if (empty($_SESSION['path'])) {
                             <!-- text input -->
                             <div class="form-group">
                                 <label>Old File / Directory Name</label>
-                                <input type="text" class="form-control" placeholder="Enter ...">
+                                <input type="text" class="form-control" placeholder="Enter ..." value="" name="old_name">
                             </div>
                             <div class="form-group">
                                 <label>New File / Directory Name</label>
-                                <input type="text" class="form-control" placeholder="Enter ...">
+                                <input type="text" class="form-control" placeholder="Enter ..." value="" name="new_name">
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="status" value="MV">Rename</button>
                         </form>
                     </div>
                     <div class="col-sm-6">
-                        <form method="POST" action="function.php">
+                        <form method="POST" action="function.php" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
+                                <label for="fileToUpload">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
+                                        <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
+                                        <label class="custom-file-label" for="fileToUpload">Choose file</label>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" name="status" value="TG">Submit</button>
+                        </form>
+                        <form method="POST" action="function.php">
+                            <div class="form-group mt-3">
+                                <label>Delete File</label>
+                                <input type="text" class="form-control" placeholder="Enter ..." value="" name="delete_file">
+                            </div>
+                            <button type="submit" class="btn btn-danger" name="status" value="RM">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -192,12 +196,17 @@ if (empty($_SESSION['path'])) {
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        bsCustomFileInput.init();
+    });
+</script>
 </body>
 
 </html>

@@ -29,13 +29,13 @@
                                 <p>List</p>
                             </a>
                         </li>
+                        <!--
                         <li class="nav-item">
                             <a href="vm_snapshot_list.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Snapshot List</p>
                             </a>
                         </li>
-                        <!--
                         <li class="nav-item">
                             <a href="pages/charts/chartjs.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

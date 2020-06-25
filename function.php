@@ -163,23 +163,97 @@ if ($status == "RD") {
     $fungsi2 = "LS";
     $pwd = $_SESSION['path'];
     exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
-    $query = "UPDATE virtual_machines SET status='ON' WHERE id='$id'";
-    mysqli_query($koneksi, $query);
 }
 
 if ($status == "MV") {
 
+    $old_name = $_POST['old_name'];
+    $new_name = $_POST['new_name'];
+
+    $pwd = $_SESSION['path'];
+    if (substr($pwd, -1) != '/') {
+        $old_path = $pwd . '/' . $old_name;
+        $new_path = $pwd . '/' . $new_name;
+    }
+
+    alert('Your file/directory has been changed', 'vm_file_explorer.php');
+    $fungsi = "MV";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $old_path $new_path");
+
+    $_SESSION['id'] = $id;
+    $fungsi2 = "LS";
+    $pwd = $_SESSION['path'];
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
 }
 
 if ($status == "RM") {
 
+    $delete_file = $_POST['delete_file'];
+
+    $pwd = $_SESSION['path'];
+    if (substr($pwd, -1) != '/') {
+        $file_path = $pwd . '/' . $delete_file;
+    }
+
+    alert('Your file has been deleted', 'vm_file_explorer.php');
+    $fungsi = "RM";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $file_path");
+
+    $_SESSION['id'] = $id;
+    $fungsi2 = "LS";
+    $pwd = $_SESSION['path'];
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
 }
 
 if ($status == "TG") {
 
+    $target_dir = "temp/uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+
+    $pwd = $_SESSION['path'];
+    if (substr($pwd, -1) != '/') {
+        $file_path = $pwd . '/' . basename($_FILES["fileToUpload"]["name"]);
+    }
+
+    alert('Your file has been uploaded', 'vm_file_explorer.php');
+    $fungsi = "TG";
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi $target_file $file_path");
+
+    $_SESSION['id'] = $id;
+    $fungsi2 = "LS";
+    $pwd = $_SESSION['path'];
+    exec("$prog $vmx $vmx_username $vmx_password $fungsi2 $pwd");
+}
+
+if ($status == "PROGRAM") {
+
+    $arg1 = $_POST['arg1'];
+    $arg2 = escapeshellarg($_POST['arg2']);
+
+    echo $arg1 . "<br>";
+    echo $arg2 . "<br>";
+
+    alert('Your file has been run', 'vm_terminal.php');
+    $fungsi = "PROGRAM";
+    shell_exec("$prog $vmx $vmx_username $vmx_password $fungsi $arg1 $arg2");
+}
+
+if ($status == "SCRIPT") {
+
+    $arg1 = $_POST['arg1'];
+
+    $target_dir = "temp/scripts/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+
+    alert('Your file has been run', 'vm_terminal.php');
+    $fungsi = "SCRIPT";
+    shell_exec("$prog $vmx $vmx_username $vmx_password $fungsi $arg1 $target_file");
 }
 
 if ($status == "TH") {
+
 
 }
 
